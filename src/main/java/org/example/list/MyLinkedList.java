@@ -1,7 +1,7 @@
 package org.example.list;
 
 public class MyLinkedList<E> implements MyList<E> {
-    private int size = 10;
+    private int size = 0;
     private Node<E> first;
     private Node<E> last;
     public MyLinkedList() {}
@@ -37,13 +37,13 @@ public class MyLinkedList<E> implements MyList<E> {
     }
 
     private void linkBefore(E e, Node<E> node) {
-        Node<E> f = node.next;
-        Node<E> newNode = new Node<>(node, e, node.next);
-        f.prev = newNode;
+        Node<E> f = node.prev;
+        Node<E> newNode = new Node<>(f, e, node);
+        f.next = newNode;
         if (f == null)
             first = newNode;
         else
-            node.next = newNode;
+            node.prev = newNode;
         size++;
     }
 
@@ -79,7 +79,7 @@ public class MyLinkedList<E> implements MyList<E> {
 
     @Override
     public E get(int index) {
-        if (index<0 || index> size)
+        if (!(index >= 0 && index < size))
             throw new IndexOutOfBoundsException("Index out of size");
         return node(index).element;
     }
