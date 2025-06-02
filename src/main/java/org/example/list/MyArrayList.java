@@ -69,12 +69,13 @@ public class MyArrayList<E> implements MyList<E> {
         Object[] es  = elementData;
         E oldValue = (E) es[index];
         fastRemove(es, index);
+        size--;
         return oldValue;
     }
 
     private void fastRemove(Object[] es, int index) {
         Object[] newArr = new Object[es.length-1];
-        for (int i = 0; i < es.length-1; i++) {
+        for (int i = 0; i < newArr.length; i++) {
             if (i<index) newArr[i] = es[i];
             else {
                 newArr[i] = es[i+1];
